@@ -39,6 +39,13 @@ var logos = {
         w: 120, // width of logo
         h: 58, // height of logo
         display: 'Vox'
+    },
+    'recode': {
+        whitePath: '../img/icon-vox-white.svg', // path to white logo
+        blackPath: '../img/icon-vox-black.svg', // path to black logo
+        w: 120, // width of logo
+        h: 58, // height of logo
+        display: 'Recode'
     }
 };
 
