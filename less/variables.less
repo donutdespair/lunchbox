@@ -1,45 +1,86 @@
 @font-face{
   font-family: "Balto";
-  src:url('https://cdn0.vox-cdn.com/fonts/vox/baltoweb-book.v81c1cef.eot');
-  src:url('https://cdn0.vox-cdn.com/fonts/vox/baltoweb-book.ved29186.woff') format('woff');
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-book.woff') format('woff'),
+       url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-book.woff2') format('woff2');
   font-weight:400;
+  font-style:normal;
+}
+
+@font-face{
+  font-family: "Balto";
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-bookitalic.woff') format('woff'),
+       url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-bookitalic.woff2') format('woff2');
+  font-weight:400;
+  font-style:italic;
+}
+
+@font-face {
+  font-family:"Balto";
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-medium.woff') format("woff");
+  font-weight:500;
   font-style:normal;
 }
 
 @font-face {
   font-family:"Balto";
-  src:url('https://cdn0.vox-cdn.com/fonts/vox/baltoweb-medium.v32923ad.eot');
-  src:url('https://cdn0.vox-cdn.com/fonts/vox/baltoweb-medium.v10502d2.woff') format("woff");
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-mediumitalic.woff') format("woff");
   font-weight:500;
-  font-style:normal;
- }
+  font-style:italic;
+}
 
 @font-face{
   font-family:"Balto";
-  src:url('https://cdn0.vox-cdn.com/fonts/vox/baltoweb-bold.v8e1522a.eot');
-  src:url('https://cdn0.vox-cdn.com/fonts/vox/baltoweb-bold.v02933a5.woff') format("woff");
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-bold.woff') format("woff"),
+       url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-bold.woff2') format("woff2");
   font-weight:700;
   font-style:normal;
+}
+
+@font-face{
+  font-family:"Balto";
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-bolditalic.woff') format("woff"),
+       url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-bolditalic.woff2') format("woff2");
+  font-weight:700;
+  font-style:italic;
+}
+
+@font-face{
+  font-family:"Balto";
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/baltoweb-black.woff') format("woff");
+  font-weight:900;
+  font-style:normal;
+}
+
+@font-face {
+  font-family: "Harriet Display";
+  src: url('https://fonts.voxmedia.com/unison/vox/webfonts/harriet_display_regular.woff') format('woff'),
+       url('https://fonts.voxmedia.com/unison/vox/webfonts/harriet_display_regular.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
 }
 
 // basic configuration
 @font-family: "Balto", Helvetica, Arial, Verdana, sans-serif;
 @condensed-font-family: Helvetica, Arial, Verdana, sans-serif;
-@bg-color: #fff; // background color of canvas poster
-@text-color: #000; // color of text on canvas
+@bg-color: #2B4259; // background color of canvas poster
+@text-color: #fff; // color of text on canvas
 
-@highlight-bg-color: #fff200;
-@highlight-text-color: black;
+@highlight-bg-color: transparent;
+@highlight-text-color: #4A99C2;
 
-@logo-path: url('../img/icon-lunchbox.png');
-@logo-sq-width: 120px;
-@logo-sq-height: 96px;
-@logo-16x9-width: 100px;
-@logo-16x9-height: 48.33333px;
-@logo-fb-ratio-width: 100px;
-@logo-fb-ratio-height: 48.33333px;
-@logo-2x1-width: 100px;
-@logo-2x1-height: 80px;
+@poster-display-width: 640px;
+@poster-padding: @poster-display-width*0.1;
+
+/*@logo-path: url('../img/icon-vox-white.png');*/
+@logo-sq-width: @poster-display-width * 0.1;
+@logo-sq-height: @logo-sq-width * 0.4833333;
+@logo-16x9-width: @logo-sq-width;
+@logo-16x9-height: @logo-sq-height;
+@logo-2x1-width: @logo-sq-width;
+@logo-2x1-height: @logo-sq-height;
+@logo-fb-ratio-width: @logo-sq-width;
+@logo-fb-ratio-height: @logo-sq-height;
+@logo-padding: @poster-display-width * 0.02822;
 
 @column-bg: #F5F5F5;
 @button-color: #EFEFEF;
@@ -64,13 +105,19 @@
 @line-height: floor(@base-font-size * @line-height-base);
 
 // quotable
-@credit-color: #999;
+@credit-color: white;
 @credit-margin: 5px;
 
+@quote-begin-height: @poster-padding * 0.8333333333;
+@quote-begin-margin-bottom: @poster-padding * 0.4814814815;
 @quote-begin-symbol: "\201C";
 @quote-end-symbol: "\201D";
-@quote-mark-margin: -0.55em;
+@quote-mark-margin: -10px;
 @quote-font-weight: bold;
+@quote-font-family: "Harriet Display", Georgia, serif;
+@quote-font-size: 180px;
+@quote-text-color: @highlight-text-color;
+@quote-line-height: 0.7;
 
 // factlist
 @bullet-symbol: '\2022';
@@ -86,47 +133,47 @@
 
 
 // themes
-@theme2-bg-color: #41474E;
-@theme2-text-color: #dbe0e6;
-@theme2-highlight-bg-color: #fff200;
-@theme2-highlight-text-color: black;
+@theme2-bg-color: #212121;
+@theme2-text-color: #fff;
+@theme2-highlight-bg-color: transparent;
+@theme2-highlight-text-color: #FFF200;
 @theme2-credit-color: #999;
 @theme2-logo-path: url('../img/icon-vox-white.svg');
-@theme2-sq-logo-width: 120px;
-@theme2-sq-logo-height: 58px;
-@theme2-16x9-logo-width: 100px;
-@theme2-16x9-logo-height: 48px;
-@theme2-2x1-logo-width: 100px;
-@theme2-2x1-logo-height: 48px;
-@theme2-fb-ratio-logo-width: 100px;
-@theme2-fb-ratio-logo-height: 48px;
+@theme2-sq-logo-width: @logo-sq-width;
+@theme2-sq-logo-height: @logo-sq-height;
+@theme2-16x9-logo-width: @logo-16x9-width;
+@theme2-16x9-logo-height: @logo-16x9-height;
+@theme2-2x1-logo-width: @logo-2x1-width;
+@theme2-2x1-logo-height: @logo-2x1-height;
+@theme2-fb-ratio-logo-width: @logo-fb-ratio-width;
+@theme2-fb-ratio-logo-height: @logo-fb-ratio-height;
 
-@theme3-bg-color: #999;
-@theme3-text-color: #000;
-@theme3-highlight-bg-color: #fff200;
-@theme3-highlight-text-color: black;
+@theme3-bg-color: #87B49E;
+@theme3-text-color: #fff;
+@theme3-highlight-bg-color: transparent;
+@theme3-highlight-text-color: #395B4A;
 @theme3-credit-color: #333;
-@theme3-logo-path: url('../img/icon-vox-black.svg');
-@theme3-sq-logo-width: 120px;
-@theme3-sq-logo-height: 58px;
-@theme3-16x9-logo-width: 100px;
-@theme3-16x9-logo-height: 48px;
-@theme3-2x1-logo-width: 100px;
-@theme3-2x1-logo-height: 48px;
-@theme3-fb-ratio-logo-width: 100px;
-@theme3-fb-ratio-logo-height: 48px;
+@theme3-logo-path: url('../img/icon-vox-white.svg');
+@theme3-sq-logo-width: @logo-sq-width;
+@theme3-sq-logo-height: @logo-sq-height;
+@theme3-16x9-logo-width: @logo-16x9-width;
+@theme3-16x9-logo-height: @logo-16x9-height;
+@theme3-2x1-logo-width: @logo-2x1-width;
+@theme3-2x1-logo-height: @logo-2x1-height;
+@theme3-fb-ratio-logo-width: @logo-fb-ratio-width;
+@theme3-fb-ratio-logo-height: @logo-fb-ratio-height;
 
-@theme4-bg-color: #C66137;
+@theme4-bg-color: #B2B2B2;
 @theme4-text-color: #fff;
-@theme4-highlight-bg-color: #fff200;
-@theme4-highlight-text-color: black;
+@theme4-highlight-bg-color: transparent;
+@theme4-highlight-text-color: #212121;
 @theme4-credit-color: #ccc;
 @theme4-logo-path: url('../img/icon-vox-white.svg');
-@theme4-sq-logo-width: 120px;
-@theme4-sq-logo-height: 58px;
-@theme4-16x9-logo-width: 100px;
-@theme4-16x9-logo-height: 48px;
-@theme4-2x1-logo-width: 100px;
-@theme4-2x1-logo-height: 48px;
-@theme4-fb-ratio-logo-width: 100px;
-@theme4-fb-ratio-logo-height: 48px;
+@theme4-sq-logo-width: @logo-sq-width;
+@theme4-sq-logo-height: @logo-sq-height;
+@theme4-16x9-logo-width: @logo-16x9-width;
+@theme4-16x9-logo-height: @logo-16x9-height;
+@theme4-2x1-logo-width: @logo-2x1-width;
+@theme4-2x1-logo-height: @logo-2x1-height;
+@theme4-fb-ratio-logo-width: @logo-fb-ratio-width;
+@theme4-fb-ratio-logo-height: @logo-fb-ratio-height;

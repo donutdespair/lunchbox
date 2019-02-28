@@ -55,6 +55,18 @@ function smarten(a) {
   return a;
 }
 
+const aspectRatioOutputs = {
+    square: [1080, 1080],
+    'sixteen-by-nine': [1920, 1080],
+    'two-by-one': [1024, 512],
+    'facebook-ratio': [1200, 630]
+};
+function getOutputDims() {
+    return aspectRatioOutputs[
+        $aspectRatioButtons.filter('.active').attr('id')
+    ];
+}
+
 function convertToSlug(text) {
     return text
         .toLowerCase()
@@ -90,13 +102,14 @@ function saveImage() {
 
     $('canvas').remove();
     processText();
-  
-    html2canvas($poster, {
-      scale: 2,
-      onrendered: function(canvas) {
+
+    const dims = getOutputDims();
+    const scale = dims[0] / $poster.outerWidth();
+
+    html2canvas($poster[0], { scale: scale }).then(function(canvas) {
         document.body.appendChild(canvas);
-        window.oCanvas = document.getElementsByTagName("canvas");
-        window.oCanvas = window.oCanvas[0];
+        const canvases = document.getElementsByTagName("canvas");
+        window.oCanvas = canvases[0];
         var strDataURI = window.oCanvas.toDataURL();
 
         var quote = $('blockquote').text().split(' ', 5);
@@ -110,7 +123,6 @@ function saveImage() {
 
         $('#download').attr('href', strDataURI).attr('target', '_blank');
         $('#download').trigger('click');
-      }
     });
 }
 
@@ -225,7 +237,7 @@ $(function() {
         }
     });
 
-    $fontSize.on('change', function() {
+    $fontSize.on('input', function() {
         adjustFontSize($(this).val());
     });
 

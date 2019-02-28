@@ -1,6 +1,6 @@
 @import "less/lib/bootstrap/bootstrap";
 @import "less/lib/font-awesome/font-awesome";
-@import "less/medium";
+//@import "less/medium";
 @import "less/variables";
 
 // Global variables
@@ -13,6 +13,7 @@ html {
 body {
     background: @gray-lighter;
     min-width: 680px;
+    color: black;
 }
 
 canvas {
@@ -168,7 +169,7 @@ canvas {
     background: @bg-color;
     margin: @line-height;
     position: relative;
-    padding: @padding * 2;
+    padding: @poster-padding;
     font-size: @base-font-size * 2;
     line-height: 1 !important;
     overflow: hidden;

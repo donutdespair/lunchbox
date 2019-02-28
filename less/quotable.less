@@ -1,6 +1,6 @@
 @import "less/lib/bootstrap/bootstrap";
 @import "less/lib/font-awesome/font-awesome";
-@import "less/medium";
+//@import "less/medium";
 @import "less/variables";
 
 // Global variables
@@ -13,10 +13,11 @@ html {
 body {
     background: @gray-lighter;
     min-width: 680px;
+    color: black;
 }
 
 canvas {
-    display: none;
+    // display: none;
     background: @musicDark;
 }
 
@@ -143,12 +144,12 @@ canvas {
 }
 
 .poster {
-    height: 640px;
-    width: 640px;
+    height: @poster-display-width;
+    width: @poster-display-width;
     background: @bg-color;
     margin: @line-height;
     position: relative;
-    padding: @padding * 2;
+    padding: @poster-padding;
     font-size: @base-font-size * 5;
     line-height: 1 !important;
     overflow: hidden;
@@ -156,28 +157,23 @@ canvas {
 
     &.poster-theme1 {
         .logo-wrapper {
-            background-image: @logo-path;
-            background-repeat: no-repeat;
-            background-size: @logo-sq-width @logo-sq-height;
-            width: @logo-sq-width + @padding;
-            height: @logo-sq-height + @padding;
+            /*background-image: @logo-path;*/
+            width: @logo-sq-width;
+            height: @logo-sq-height;
 
             .sixteen-by-nine& {
-                background-size: @logo-16x9-width @logo-16x9-height;
-                width: @logo-16x9-width + @padding;
-                height: @logo-16x9-height + @padding;
+                width: @logo-16x9-width;
+                height: @logo-16x9-height;
             }
 
             .two-by-one& {
-                background-size: @logo-2x1-width @logo-2x1-height;
-                width: @logo-2x1-width + @padding;
-                height: @logo-2x1-height + @padding;
+                width: @logo-2x1-width;
+                height: @logo-2x1-height;
             }
 
             .facebook-ratio& {
-                background-size: @logo-fb-ratio-width @logo-fb-ratio-height;
-                width: @logo-fb-ratio-width + @padding;
-                height: @logo-fb-ratio-height + @padding;
+                width: @logo-fb-ratio-width;
+                height: @logo-fb-ratio-height;
             }
         }
     }
@@ -186,30 +182,23 @@ canvas {
         background: @theme2-bg-color;
         color: @theme2-text-color;
         .logo-wrapper {
-            background: @theme2-bg-color;
-            color: @theme2-text-color;
-            background-image: @theme2-logo-path;
-            background-repeat: no-repeat;
-            background-size: @theme2-sq-logo-width @theme2-sq-logo-height;
-            width: @theme2-sq-logo-width + @padding;
-            height: @theme2-sq-logo-height + @padding;
+            /*background-image: @theme2-logo-path;*/
+            width: @theme2-sq-logo-width;
+            height: @theme2-sq-logo-height;
 
             .sixteen-by-nine& {
-                background-size: @theme2-16x9-logo-width @theme2-16x9-logo-height;
-                width: @theme2-16x9-logo-width + @padding;
-                height: @theme2-16x9-logo-height + @padding;
+                width: @theme2-16x9-logo-width;
+                height: @theme2-16x9-logo-height;
             }
 
             .two-by-one& {
-                background-size: @theme2-2x1-logo-width @theme2-2x1-logo-height;
-                width: @theme2-2x1-logo-width + @padding;
-                height: @theme2-2x1-logo-height + @padding;
+                width: @theme2-2x1-logo-width;
+                height: @theme2-2x1-logo-height;
             }
 
             .facebook-ratio& {
-              background-size: @theme2-fb-ratio-logo-width @theme2-fb-ratio-logo-height;
-              width: @theme2-fb-ratio-logo-width + @padding;
-              height: @theme2-fb-ratio-logo-height + @padding;
+              width: @theme2-fb-ratio-logo-width;
+              height: @theme2-fb-ratio-logo-height;
             }
         }
         .show-credit {
@@ -226,30 +215,23 @@ canvas {
         background: @theme3-bg-color;
         color: @theme3-text-color;
         .logo-wrapper {
-            background: @theme3-bg-color;
-            color: @theme3-text-color;
-            background-image: @theme3-logo-path;
-            background-repeat: no-repeat;
-            background-size: @theme3-sq-logo-width @theme3-sq-logo-height;
-            width: @theme3-sq-logo-width + @padding;
-            height: @theme3-sq-logo-height + @padding;
+            /*background-image: @theme3-logo-path;*/
+            width: @theme3-sq-logo-width;
+            height: @theme3-sq-logo-height;
 
             .sixteen-by-nine& {
-                background-size: @theme3-16x9-logo-width @theme3-16x9-logo-height;
-                width: @theme3-16x9-logo-width + @padding;
-                height: @theme3-16x9-logo-height + @padding;
+                width: @theme3-16x9-logo-width;
+                height: @theme3-16x9-logo-height;
             }
 
             .two-by-one& {
-                background-size: @theme3-2x1-logo-width @theme3-2x1-logo-height;
-                width: @theme3-2x1-logo-width + @padding;
-                height: @theme3-2x1-logo-height + @padding;
+                width: @theme3-2x1-logo-width;
+                height: @theme3-2x1-logo-height;
             }
 
             .facebook-ratio& {
-                background-size: @theme3-fb-ratio-logo-width @theme3-fb-ratio-logo-height;
-                width: @theme3-fb-ratio-logo-width + @padding;
-                height: @theme3-fb-ratio-logo-height + @padding;
+                width: @theme3-fb-ratio-logo-width;
+                height: @theme3-fb-ratio-logo-height;
             }
         }
         .show-credit {
@@ -265,30 +247,23 @@ canvas {
         background: @theme4-bg-color;
         color: @theme4-text-color;
         .logo-wrapper {
-            background: @theme4-bg-color;
-            color: @theme4-text-color;
-            background-image: @theme4-logo-path;
-            background-repeat: no-repeat;
-            background-size: @theme4-sq-logo-width @theme4-sq-logo-height;
-            width: @theme4-sq-logo-width + @padding;
-            height: @theme4-sq-logo-height + @padding;
+            /*background-image: @theme4-logo-path;*/
+            width: @theme4-sq-logo-width;
+            height: @theme4-sq-logo-height;
 
             .sixteen-by-nine& {
-                background-size: @theme4-16x9-logo-width @theme4-16x9-logo-height;
-                width: @theme4-16x9-logo-width + @padding;
-                height: @theme4-16x9-logo-height + @padding;
+                width: @theme4-16x9-logo-width;
+                height: @theme4-16x9-logo-height;
             }
 
             .two-by-one& {
-                background-size: @theme4-2x1-logo-width @theme4-2x1-logo-height;
-                width: @theme4-2x1-logo-width + @padding;
-                height: @theme4-2x1-logo-height + @padding;
+                width: @theme4-2x1-logo-width;
+                height: @theme4-2x1-logo-height;
             }
 
             .facebook-ratio& {
-                background-size: @theme4-fb-ratio-logo-width @theme4-fb-ratio-logo-height;
-                width: @theme4-fb-ratio-logo-width + @padding;
-                height: @theme4-fb-ratio-logo-height + @padding;
+                width: @theme4-fb-ratio-logo-width;
+                height: @theme4-fb-ratio-logo-height;
             }
         }
         .show-credit {
@@ -301,7 +276,7 @@ canvas {
     }
 
     &.sixteen-by-nine {
-        height: 360px;
+        height: @poster-display-width * 0.5625;
         padding: @padding;
 
         .quote& {
@@ -313,18 +288,6 @@ canvas {
 
         blockquote {
             margin-bottom: 20px;
-        }
-
-        .logo-wrapper {
-            padding: @padding;
-
-            img {
-                width: 150px;
-            }
-
-            .poster-music& {
-                padding-bottom: @padding - 10;
-            }
         }
 
         p.source {
@@ -337,7 +300,7 @@ canvas {
     }
 
     &.two-by-one {
-        height: 320px;
+        height: @poster-display-width * 0.5;
         padding: @padding;
 
         .quote& {
@@ -351,16 +314,28 @@ canvas {
             margin-bottom: 20px;
         }
 
-        .logo-wrapper {
-            padding: @padding;
+        p.source {
+            font-size: @base-font-size * 1.3;
+        }
 
-            img {
-                width: 150px;
-            }
+        .show-credit {
+            font-size: @base-font-size * 1.1;
+        }
+    }
 
-            .poster-music& {
-                padding-bottom: @padding - 10;
+    .facebook-ratio& {
+        height: @poster-display-width * 0.525;
+        padding: @padding;
+
+        .quote& {
+            .left-quote {
+                top: @padding;
+                left: @padding;
             }
+        }
+
+        blockquote {
+            margin-bottom: 20px;
         }
 
         p.source {
@@ -372,52 +347,21 @@ canvas {
         }
     }
 
-    .facebook-ratio& {
-      width: 600px;
-      height: 315px;
-      padding: @padding;
-
-      .quote& {
-          .left-quote {
-              top: @padding;
-              left: @padding;
-          }
-      }
-
-      blockquote {
-          margin-bottom: 20px;
-      }
-
-      .logo-wrapper {
-          padding: @padding;
-
-          img {
-              width: 150px;
-          }
-
-          .poster-music& {
-              padding-bottom: @padding - 10;
-          }
-      }
-
-      p.source {
-          font-size: @base-font-size * 1.3;
-      }
-
-      .show-credit {
-          font-size: @base-font-size * 1.1;
-      }
-    }
-
     .quote& {
         .left-quote {
             content:@quote-begin-symbol;
             display: block;
-            position: absolute;
-            top: @padding * 2;
-            left: @padding * 2;
-            font-weight: @quote-font-weight;
+            height:@quote-begin-height;
+            margin-bottom:@quote-begin-margin-bottom;
+            /*position: absolute;*/
+            /*top: @poster-padding;*/
+            /*left: @poster-padding;*/
             margin-left: @quote-mark-margin;
+            line-height: @quote-line-height;
+            color: @quote-text-color;
+            font-family: @quote-font-family;
+            font-weight: @quote-font-weight;
+            font-size: @quote-font-size;
         }
     }
 
@@ -503,37 +447,32 @@ canvas {
 
     .logo-wrapper {
         position: absolute;
-        width: 100%;
         z-index: 100;
-        bottom: 0;
-        right: 0;
-        text-align: right;
-        padding:  @padding @padding * 2 @padding * 2;
+        bottom: @logo-padding;
+        right: @logo-padding;
+        padding: 0;
         margin: 0;
         font-size: 46px;
-        background: @bg-color;
-        background-image: @logo-path;
+        /*background-image: @logo-path;*/
         background-repeat: no-repeat;
-        background-size: @logo-sq-width @logo-sq-height;
-        width: @logo-sq-width + @padding;
-        height: @logo-sq-height + @padding;
+        background-size: contain;
+        width: @logo-sq-width;
+        height: @logo-sq-height;
+        img { max-width:100%; display:block;}
 
         .sixteen-by-nine& {
-            background-size: @logo-16x9-width @logo-16x9-height;
-            width: @logo-16x9-width + @padding;
-            height: @logo-16x9-height + @padding;
+            width: @logo-16x9-width;
+            height: @logo-16x9-height;
         }
 
         .two-by-one& {
-            background-size: @logo-2x1-width @logo-2x1-height;
-            width: @logo-2x1-width + @padding;
-            height: @logo-2x1-height + @padding;
+            width: @logo-2x1-width;
+            height: @logo-2x1-height;
         }
 
         .facebook-ratio& {
-            background-size: @logo-fb-ratio-width @logo-fb-ratio-height;
-            width: @logo-fb-ratio-width + @padding;
-            height: @logo-fb-ratio-height + @padding;
+            width: @logo-fb-ratio-width;
+            height: @logo-fb-ratio-height;
         }
 
         .logo {
