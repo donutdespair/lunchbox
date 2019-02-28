@@ -2,7 +2,7 @@
 
 root = true
 
-[*.{js,py}]
+[*.{js,py,less,css,html}]
 charset = utf-8
 indent_style = space
 indent_size = 4
