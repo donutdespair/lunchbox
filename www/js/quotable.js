@@ -15,30 +15,30 @@ var $resetHighlight = null;
 var quotes = [
     {
         "quote": "I'd been drinking.",
-        "source": "Dennis Rodman"
+        "source": "Dennis Rodman<br>Basketball guy"
     },
     {
         "quote": "I've made a huge mistake.",
-        "source": "G.O.B."
+        "source": "G.O.B.<br>Local Magician"
     },
     {
         "quote": "Yes, I have smoked crack cocaine",
-        "source": "Toronto Mayor Rob Ford",
+        "source": "Rob Ford<br>Toronto Mayor",
         "size": 65
     },
     {
         "quote": "Annyong.",
-        "source": "Annyong",
+        "source": "Annyong<br>Annyong",
         "size": 90
     },
     {
         "quote": "STEVE HOLT!",
-        "source": "Steve Holt",
+        "source": "Steve Holt<br>High schooler",
         "size": 65
     },
     {
         "quote": "Whoa, whoa, whoa. There's still plenty of meat on that bone. Now you take this home, throw it in a pot, add some broth, a potato. Baby, you've got a stew going.",
-        "source": "Carl Weathers",
+        "source": "Carl Weathers<br>Acting Coach",
         "size": 40
     }
 ];
@@ -75,16 +75,23 @@ function convertToSlug(text) {
 }
 
 function processText() {
-    $text = $('.poster blockquote p, .source');
-    $text.each(function() {
+    $('.poster blockquote p').each(function() {
         var rawText = $.trim($(this).html());
         $(this).html(smarten(rawText)).find('br').remove();
     });
+    $('.source').each(function() {
+        var rawText = $.trim($(this).html());
+        $(this).html(smarten(rawText));
+    });
+}
+
+function isTextTooLong() {
+    return ($source.offset().top + $source.height()) > $logoWrapper.offset().top
 }
 
 function saveImage() {
     // first check if the quote actually fits
-    if (($source.offset().top + $source.height()) > $logoWrapper.offset().top) {
+    if ( isTextTooLong() ) {
         alert("Your quote doesn't quite fit. Shorten the text or choose a smaller font-size.");
         return;
     }
@@ -127,8 +134,8 @@ function saveImage() {
 }
 
 function adjustFontSize(size) {
-    var fontSize = size.toString() + 'px';
-    $poster.css('font-size', fontSize);
+    var fontSize = size.toString() + '%';
+    $('.poster blockquote p').css('font-size', fontSize);
     if ($fontSize.val() !== size){
         $fontSize.val(size);
     };
@@ -159,16 +166,35 @@ function getSelectionCharOffsetsWithin(element) {
     };
 }
 
-
 function getSelectionText() {
     var text = "";
     if (window.getSelection) {
-      // console.log(window.getSelection().getRangeAt(0));
         text = window.getSelection().toString();
     } else if (document.selection && document.selection.type != "Control") {
         text = document.selection.createRange().text;
     }
     return text;
+}
+
+function autoFontSize() {
+    const max = $fontSize.attr('max');
+    const min = $fontSize.attr('min');
+    adjustFontSize($fontSize.val());
+    if ( isTextTooLong() ) {
+        while ( isTextTooLong() ) {
+            const newSize = $fontSize.val() - 1;
+            if ( newSize < min ) break;
+            adjustFontSize(newSize);
+        }
+    } else {
+        while ( !isTextTooLong() ) {
+            const newSize = $fontSize.val() + 1;
+            if ( newSize > max ) break;
+            adjustFontSize();
+        }
+        if ( isTextTooLong() )
+            adjustFontSize($fontSize.val() - 1);
+    }
 }
 
 $(function() {
@@ -190,11 +216,9 @@ $(function() {
         spanArray = quoteArray;
 
     var quote = quotes[Math.floor(Math.random()*quotes.length)];
-    if (quote.size){
-        adjustFontSize(quote.size);
-    }
     $('blockquote p').text(quote.quote);
-    $source.html('&mdash;&thinsp;' + quote.source);
+    console.log(quote.source);
+    $source.html(quote.source);
     processText();
 
     $save.on('click', saveImage);
@@ -202,22 +226,16 @@ $(function() {
     $themeButtons.on('click', function() {
         $themeButtons.removeClass().addClass('btn btn-primary');
         $(this).addClass('active');
-        $poster.removeClass('poster-theme1 poster-theme2 poster-theme3 poster-theme4')
-                    .addClass('poster-' + $(this).attr('id'));
+        $poster
+            .removeClass('poster-theme1 poster-theme2 poster-theme3 poster-theme4')
+            .addClass('poster-' + $(this).attr('id'));
     });
 
     $aspectRatioButtons.on('click', function() {
         $aspectRatioButtons.removeClass().addClass('btn btn-primary');
         $(this).addClass('active');
         $poster.removeClass('square sixteen-by-nine facebook-ratio two-by-one').addClass($(this).attr('id'));
-
-        if ($poster.hasClass('sixteen-by-nine') || $poster.hasClass('facebook-ratio') || $poster.hasClass('two-by-one')) {
-            adjustFontSize(32);
-            $fontSize.val(32);
-        } else {
-            adjustFontSize(90);
-            $fontSize.val(90);
-        }
+        adjustFontSize(100)
     });
 
     $quote.on('click', function() {
@@ -254,87 +272,87 @@ $(function() {
     // });
     var selectedDiv;
     $('.poster blockquote p').on('mousedown', function(){
-      selectedDiv = this;
-      spanArray = quoteArray;
+        selectedDiv = this;
+        spanArray = quoteArray;
     });
 
     $('.poster .source').on('mousedown', function(){
-      selectedDiv = this;
-      spanArray = attributionArray;
+        selectedDiv = this;
+        spanArray = attributionArray;
     });
 
     $($poster).on('mouseup', function(){
-      if(getSelectionText().length > 0 && highlight === 'highlight-on'){
-        spanArray.push(getSelectionCharOffsetsWithin(selectedDiv));
-        spanArray = _.sortBy(spanArray, 'start');
-        if(spanArray.length > 1){
-          $.each(spanArray, function(i, d){
-            if(i+1 < spanArray.length){
-              if(d.end >= spanArray[i+1].start){
-                spanArray[i+1].start = d.start;
-                spanArray.splice(i, 1);
-              }
+        if(getSelectionText().length > 0 && highlight === 'highlight-on'){
+            spanArray.push(getSelectionCharOffsetsWithin(selectedDiv));
+            spanArray = _.sortBy(spanArray, 'start');
+            if(spanArray.length > 1){
+                $.each(spanArray, function(i, d){
+                    if(i+1 < spanArray.length){
+                        if(d.end >= spanArray[i+1].start){
+                            spanArray[i+1].start = d.start;
+                            spanArray.splice(i, 1);
+                        }
+                    }
+                });
             }
-          });
+
+            var selectedText = getSelectionText(),
+                text = $(selectedDiv).text(),
+                textArray = text.split('');
+
+            var count = 0;
+            $.each(spanArray, function(i, d){
+                textArray.splice(d.start+count, 0, '<span>');
+                count += 1;
+                textArray.splice(d.end+count, 0, '</span>');
+                count += 1;
+            });
+
+            $(selectedDiv).html(textArray.join(''));
+            $(selectedDiv).blur();
         }
-
-        var selectedText = getSelectionText(),
-            text = $(selectedDiv).text(),
-            textArray = text.split('');
-
-        var count = 0;
-        $.each(spanArray, function(i, d){
-          textArray.splice(d.start+count, 0, '<span>');
-          count += 1;
-          textArray.splice(d.end+count, 0, '</span>');
-          count += 1;
-        });
-
-        $(selectedDiv).html(textArray.join(''));
-        $(selectedDiv).blur();
-      }
     });
 
     $($poster).on('keyup', function(event){
-      var tempArray = [];
-      var spans = [];
-      $.each($(selectedDiv).find('span'), function(i, d){
-        spans.push($(d).html());
-      });
-      var array = $(selectedDiv).html().replace(/&nbsp;/g, ' ').split(/(<span>.*?<\/span>)/g);
+        var tempArray = [];
+        var spans = [];
+        $.each($(selectedDiv).find('span'), function(i, d){
+            spans.push($(d).html());
+        });
+        var array = $(selectedDiv).html().replace(/&nbsp;/g, ' ').split(/(<span>.*?<\/span>)/g);
 
-      var count = 0;
-      $.each(array, function(i, d){
-        if(d.match(/(<span>.*?<\/span>)/g)){
-          var item =  {
-              start: count,
-              end: 0,
-              text: d.replace(/<span>/, '').replace(/<\/span>/, '')
-          };
-          var text = d.replace(/<span>/, '').replace(/<\/span>/, '');
-          count += text.length;
-          item.end = count;
-          tempArray.push(item);
+        var count = 0;
+        $.each(array, function(i, d){
+            if(d.match(/(<span>.*?<\/span>)/g)){
+                var item =  {
+                    start: count,
+                    end: 0,
+                    text: d.replace(/<span>/, '').replace(/<\/span>/, '')
+                };
+                var text = d.replace(/<span>/, '').replace(/<\/span>/, '');
+                count += text.length;
+                item.end = count;
+                tempArray.push(item);
+            } else {
+                count += d.length;
+            }
+        });
+
+        if(spanArray === quoteArray){
+            quoteArray = tempArray;
+            spanArray = quoteArray;
         } else {
-          count += d.length;
+            attributionArray = tempArray;
+            spanArray = attributionArray;
         }
-      });
-
-      if(spanArray === quoteArray){
-        quoteArray = tempArray;
-        spanArray = quoteArray;
-      } else {
-        attributionArray = tempArray;
-        spanArray = attributionArray;
-      }
     });
 
     $resetHighlight.on('click', function(){
-      $.each($text, function(i, d){
-        $(d).html($(d).text());
-      });
-      quoteArray = [];
-      attributionArray = [];
+        $.each($text, function(i, d){
+            $(d).html($(d).text());
+        });
+        quoteArray = [];
+        attributionArray = [];
     });
 
 

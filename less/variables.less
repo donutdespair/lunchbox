@@ -65,21 +65,71 @@
 @bg-color: #2B4259; // background color of canvas poster
 @text-color: #fff; // color of text on canvas
 
+@padding: 30px;
+@base-font-size: 17px;
+@line-height-base: 20/14;
+@line-height: floor(@base-font-size * @line-height-base);
+
+// Quotable and factlist settings
 @highlight-bg-color: transparent;
 @highlight-text-color: #4A99C2;
 
 @poster-display-width: 640px;
-@poster-padding: @poster-display-width*0.1;
+@poster-padding: 108px;
+@foo: @poster-display-width*0.1;
 
-/*@logo-path: url('../img/icon-vox-white.png');*/
-@logo-sq-width: @poster-display-width * 0.1;
-@logo-sq-height: @logo-sq-width * 0.4833333;
-@logo-16x9-width: @logo-sq-width;
-@logo-16x9-height: @logo-sq-height;
-@logo-2x1-width: @logo-sq-width;
-@logo-2x1-height: @logo-sq-height;
-@logo-fb-ratio-width: @logo-sq-width;
-@logo-fb-ratio-height: @logo-sq-height;
+@poster-sq-real-width: 1080px;
+@poster-sq-real-padding: 108px;
+@poster-sq-scale: @poster-sq-real-width / @poster-display-width;
+@poster-sq-ratio: 1 / @poster-sq-scale; // 0.5925925926
+@poster-sq-padding: @poster-sq-real-padding / @poster-sq-real-width * @poster-display-width;
+
+@poster-16x9-real-width: 1920px;
+@poster-16x9-real-padding: 108px;
+@poster-16x9-scale: @poster-16x9-real-width / @poster-display-width;
+@poster-16x9-ratio: 1 / @poster-16x9-scale;
+@poster-16x9-padding: @poster-padding;
+@poster-16x9-padding: @poster-16x9-real-padding / @poster-16x9-real-width * @poster-display-width;
+
+@poster-2x1-real-width: 1024px;
+@poster-2x1-real-padding: 72px;
+@poster-2x1-scale: @poster-2x1-real-width / @poster-display-width;
+@poster-2x1-ratio: 1 / @poster-2x1-scale;
+@poster-2x1-padding: @poster-padding;
+@poster-2x1-padding: @poster-2x1-real-padding / @poster-2x1-real-width * @poster-display-width;
+
+@poster-fb-ratio-real-width: 1200px;
+@poster-fb-ratio-real-padding: 84px;
+@poster-fb-ratio-scale: @poster-fb-ratio-real-width / @poster-display-width;
+@poster-fb-ratio-ratio: 1 / @poster-fb-ratio-scale;
+@poster-fb-ratio-padding: @poster-padding;
+@poster-fb-ratio-padding: @poster-fb-ratio-real-padding / @poster-fb-ratio-real-width * @poster-display-width;
+
+@logo-path: url('../img/icon-vox-white.svg'); // not used in quotable
+@logo-real-width: 120px;
+@logo-real-height: 58px;
+@logo-hw-ratio: @logo-real-height / @logo-real-width;
+
+@logo-display-width: 108px;
+@logo-display-height: @logo-display-width * @logo-hw-ratio;
+@logo-display-padding: 30px;
+
+@logo-sq-width: @logo-display-width * @poster-sq-ratio;
+@logo-sq-height: @logo-display-height * @poster-sq-ratio;
+@logo-sq-padding: @logo-display-padding * @poster-sq-ratio;
+
+@logo-16x9-width: @logo-display-width * @poster-16x9-ratio;
+@logo-16x9-height: @logo-display-height * @poster-16x9-ratio;
+@logo-16x9-padding: @logo-display-padding * @poster-16x9-ratio;
+
+@logo-2x1-width: @logo-display-width * @poster-2x1-ratio;
+@logo-2x1-height: @logo-display-height * @poster-2x1-ratio;
+@logo-2x1-padding: @logo-display-padding * @poster-2x1-ratio;
+
+@logo-fb-ratio-width: @logo-display-width * @poster-fb-ratio-ratio;
+@logo-fb-ratio-height: @logo-display-height * @poster-fb-ratio-ratio;
+@logo-fb-ratio-padding: @logo-display-padding * @poster-fb-ratio-ratio;
+
 @logo-padding: @poster-display-width * 0.02822;
 
 @column-bg: #F5F5F5;
@@ -99,25 +149,93 @@
 @btn-success-bg: #5996AD;
 @btn-success-border: #5996AD;
 
-@padding: 30px;
-@base-font-size: 17px;
-@line-height-base: 20/14;
-@line-height: floor(@base-font-size * @line-height-base);
-
 // quotable
 @credit-color: white;
 @credit-margin: 5px;
 
+@quote-sq-real-font-size: 66px;
+@credit-sq-real-font-size: 36px;
+@quote-sq-font-size: @quote-sq-real-font-size * @poster-sq-ratio;
+@credit-sq-font-size: @credit-sq-real-font-size * @poster-sq-ratio;
+
+@quote-16x9-real-font-size: 66px;
+@credit-16x9-real-font-size: 36px;
+@quote-16x9-font-size: @quote-16x9-real-font-size * @poster-16x9-ratio;
+@credit-16x9-font-size: @credit-16x9-real-font-size * @poster-16x9-ratio;
+
+@quote-2x1-real-font-size: 42px;
+@credit-2x1-real-font-size: 30px;
+@quote-2x1-font-size: @quote-2x1-real-font-size * @poster-2x1-ratio;
+@credit-2x1-font-size: @credit-2x1-real-font-size * @poster-2x1-ratio;
+
+@quote-fb-ratio-real-font-size: 48px;
+@credit-fb-ratio-real-font-size: 30px;
+@quote-fb-ratio-font-size: @quote-fb-ratio-real-font-size * @poster-fb-ratio-ratio;
+@credit-fb-ratio-font-size: @credit-fb-ratio-real-font-size * @poster-fb-ratio-ratio;
+
+@quote-begin-symbol: "\201C";
+@quote-begin-font-weight: bold;
+@quote-begin-font-family: "Harriet Display", Georgia, serif;
+@quote-begin-text-color: @highlight-text-color;
+
+// @quote-begin-display-width: 110px;
+// @quote-begin-display-height: 90px;
+// @quote-begin-display-margin-bottom: 45px;
+
 @quote-begin-height: @poster-padding * 0.8333333333;
 @quote-begin-margin-bottom: @poster-padding * 0.4814814815;
-@quote-begin-symbol: "\201C";
+@quote-begin-margin-left: -20px;
+@quote-begin-font-size: 300px;
+@quote-begin-line-height: 0.7;
+
+@quote-begin-sq-real-width: 110px;
+@quote-begin-sq-real-height: 90px;
+@quote-begin-sq-real-margin-bottom: 52px;
+
+@quote-begin-sq-width: @quote-begin-sq-real-width * @poster-sq-ratio;
+@quote-begin-sq-height: @quote-begin-sq-real-height * @poster-sq-ratio;
+@quote-begin-sq-margin-bottom: @quote-begin-sq-real-margin-bottom * @poster-sq-ratio;
+@quote-begin-sq-margin-left: -10px;
+@quote-begin-sq-font-size: 182px;
+@quote-begin-sq-line-height: @quote-begin-line-height;
+
+@quote-begin-16x9-real-width: 110px;
+@quote-begin-16x9-real-height: 90px;
+@quote-begin-16x9-real-margin-bottom: 52px;
+
+@quote-begin-16x9-width: @quote-begin-16x9-real-width * @poster-16x9-ratio;
+@quote-begin-16x9-height: @quote-begin-16x9-real-height * @poster-16x9-ratio;
+@quote-begin-16x9-margin-bottom: @quote-begin-16x9-real-margin-bottom * @poster-16x9-ratio;
+@quote-begin-16x9-margin-left: -5px;
+@quote-begin-16x9-font-size: 100px;
+@quote-begin-16x9-line-height: @quote-begin-line-height;
+
+@quote-begin-2x1-real-width: 66px;
+@quote-begin-2x1-real-height: 54px;
+@quote-begin-2x1-real-margin-bottom: 40px;
+
+@quote-begin-2x1-width: @quote-begin-2x1-real-width * @poster-2x1-ratio;
+@quote-begin-2x1-height: @quote-begin-2x1-real-height * @poster-2x1-ratio;
+@quote-begin-2x1-margin-bottom: @quote-begin-2x1-real-margin-bottom * @poster-2x1-ratio;
+@quote-begin-2x1-margin-left: -6px;
+@quote-begin-2x1-font-size: 110px;
+@quote-begin-2x1-line-height: @quote-begin-line-height;
+
+@quote-begin-fb-ratio-real-width: 66px;
+@quote-begin-fb-ratio-real-height: 54px;
+@quote-begin-fb-ratio-real-margin-bottom: 40px;
+
+@quote-begin-fb-ratio-width: @quote-begin-fb-ratio-real-width * @poster-fb-ratio-ratio;
+@quote-begin-fb-ratio-height: @quote-begin-fb-ratio-real-height * @poster-fb-ratio-ratio;
+@quote-begin-fb-ratio-margin-bottom: @quote-begin-fb-ratio-real-margin-bottom * @poster-fb-ratio-ratio;
+@quote-begin-fb-ratio-margin-left: -6px;
+@quote-begin-fb-ratio-font-size: 110px;
+@quote-begin-fb-ratio-line-height: @quote-begin-line-height;
+
 @quote-end-symbol: "\201D";
-@quote-mark-margin: -10px;
-@quote-font-weight: bold;
-@quote-font-family: "Harriet Display", Georgia, serif;
-@quote-font-size: 180px;
-@quote-text-color: @highlight-text-color;
-@quote-line-height: 0.7;
+@quote-end-font-weight: bold;
+
+@attribution-symbol: "\2014";
 
 // factlist
 @bullet-symbol: '\2022';
@@ -137,43 +255,73 @@
 @theme2-text-color: #fff;
 @theme2-highlight-bg-color: transparent;
 @theme2-highlight-text-color: #FFF200;
-@theme2-credit-color: #999;
-@theme2-logo-path: url('../img/icon-vox-white.svg');
+@theme2-credit-color: #fff;
+@theme2-quote-text-color: @theme2-highlight-text-color;
+
+@theme2-logo-path: url('../img/icon-vox-white.svg'); // not used in quotable
+
 @theme2-sq-logo-width: @logo-sq-width;
 @theme2-sq-logo-height: @logo-sq-height;
+@theme2-sq-logo-padding: @logo-sq-padding;
+
 @theme2-16x9-logo-width: @logo-16x9-width;
 @theme2-16x9-logo-height: @logo-16x9-height;
+@theme2-16x9-logo-padding: @logo-16x9-padding;
+
 @theme2-2x1-logo-width: @logo-2x1-width;
 @theme2-2x1-logo-height: @logo-2x1-height;
+@theme2-2x1-logo-padding: @logo-2x1-padding;
+
 @theme2-fb-ratio-logo-width: @logo-fb-ratio-width;
 @theme2-fb-ratio-logo-height: @logo-fb-ratio-height;
+@theme2-fb-ratio-logo-padding: @logo-fb-ratio-padding;
 
 @theme3-bg-color: #87B49E;
 @theme3-text-color: #fff;
 @theme3-highlight-bg-color: transparent;
 @theme3-highlight-text-color: #395B4A;
-@theme3-credit-color: #333;
-@theme3-logo-path: url('../img/icon-vox-white.svg');
+@theme3-credit-color: #fff;
+@theme3-quote-text-color: @theme3-highlight-text-color;
+
+@theme3-logo-path: url('../img/icon-vox-white.svg'); // not used in quotable
+
 @theme3-sq-logo-width: @logo-sq-width;
 @theme3-sq-logo-height: @logo-sq-height;
+@theme3-sq-logo-padding: @logo-sq-padding;
+
 @theme3-16x9-logo-width: @logo-16x9-width;
 @theme3-16x9-logo-height: @logo-16x9-height;
+@theme3-16x9-logo-padding: @logo-16x9-padding;
+
 @theme3-2x1-logo-width: @logo-2x1-width;
 @theme3-2x1-logo-height: @logo-2x1-height;
+@theme3-2x1-logo-padding: @logo-2x1-padding;
+
 @theme3-fb-ratio-logo-width: @logo-fb-ratio-width;
 @theme3-fb-ratio-logo-height: @logo-fb-ratio-height;
+@theme3-fb-ratio-logo-padding: @logo-fb-ratio-padding;
 
 @theme4-bg-color: #B2B2B2;
 @theme4-text-color: #fff;
 @theme4-highlight-bg-color: transparent;
 @theme4-highlight-text-color: #212121;
-@theme4-credit-color: #ccc;
-@theme4-logo-path: url('../img/icon-vox-white.svg');
+@theme4-credit-color: #fff;
+@theme4-quote-text-color: @theme4-highlight-text-color;
+
+@theme4-logo-path: url('../img/icon-vox-white.svg'); // not used in quotable
+
 @theme4-sq-logo-width: @logo-sq-width;
 @theme4-sq-logo-height: @logo-sq-height;
+@theme4-sq-logo-padding: @logo-sq-padding;
+
 @theme4-16x9-logo-width: @logo-16x9-width;
 @theme4-16x9-logo-height: @logo-16x9-height;
+@theme4-16x9-logo-padding: @logo-16x9-padding;
+
 @theme4-2x1-logo-width: @logo-2x1-width;
 @theme4-2x1-logo-height: @logo-2x1-height;
+@theme4-2x1-logo-padding: @logo-2x1-padding;
+
 @theme4-fb-ratio-logo-width: @logo-fb-ratio-width;
 @theme4-fb-ratio-logo-height: @logo-fb-ratio-height;
+@theme4-fb-ratio-logo-padding: @logo-fb-ratio-padding;
