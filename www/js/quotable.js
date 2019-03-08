@@ -55,7 +55,7 @@ function smarten(a) {
   return a;
 }
 
-const aspectRatioOutputs = {
+var aspectRatioOutputs = {
     square: [1080, 1080],
     'sixteen-by-nine': [1920, 1080],
     'two-by-one': [1024, 512],
@@ -91,10 +91,7 @@ function isTextTooLong() {
 
 function saveImage() {
     // first check if the quote actually fits
-    if ( isTextTooLong() ) {
-        alert("Your quote doesn't quite fit. Shorten the text or choose a smaller font-size.");
-        return;
-    }
+    if ( isTextTooLong() ) autoFontSize();
 
     // don't print placeholder text if source is empty
     if ($source.text() === '') {
@@ -103,19 +100,19 @@ function saveImage() {
     }
 
     // make sure source begins with em dash
-    if (!$source.text().match(/^[\u2014]/g)) {
-        $source.html('&mdash;&thinsp;' + $source.text());
-    }
+    // if (!$source.text().match(/^[\u2014]/g)) {
+    //     $source.html('&mdash;&thinsp;' + $source.text());
+    // }
 
     $('canvas').remove();
     processText();
 
-    const dims = getOutputDims();
-    const scale = dims[0] / $poster.outerWidth();
+    var dims = getOutputDims();
+    var scale = dims[0] / $poster.outerWidth();
 
     html2canvas($poster[0], { scale: scale }).then(function(canvas) {
         document.body.appendChild(canvas);
-        const canvases = document.getElementsByTagName("canvas");
+        var canvases = document.getElementsByTagName("canvas");
         window.oCanvas = canvases[0];
         var strDataURI = window.oCanvas.toDataURL();
 
@@ -177,18 +174,18 @@ function getSelectionText() {
 }
 
 function autoFontSize() {
-    const max = $fontSize.attr('max');
-    const min = $fontSize.attr('min');
+    var max = $fontSize.attr('max');
+    var min = $fontSize.attr('min');
     adjustFontSize($fontSize.val());
     if ( isTextTooLong() ) {
         while ( isTextTooLong() ) {
-            const newSize = $fontSize.val() - 1;
+            var newSize = $fontSize.val() - 1;
             if ( newSize < min ) break;
             adjustFontSize(newSize);
         }
     } else {
         while ( !isTextTooLong() ) {
-            const newSize = $fontSize.val() + 1;
+            var newSize = $fontSize.val() + 1;
             if ( newSize > max ) break;
             adjustFontSize();
         }
