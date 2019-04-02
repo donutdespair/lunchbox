@@ -98,6 +98,12 @@
 @poster-2x1-padding: @poster-padding;
 @poster-2x1-padding: @poster-2x1-real-padding / @poster-2x1-real-width * @poster-display-width;
 
+@poster-8x10-real-width: 1080px;
+@poster-8x10-real-padding: 108px;
+@poster-8x10-scale: @poster-8x10-real-width / @poster-display-width;
+@poster-8x10-ratio: 1 / @poster-8x10-scale;
+@poster-8x10-padding: @poster-8x10-real-padding / @poster-8x10-real-width * @poster-display-width;
+
 @poster-fb-ratio-real-width: 1200px;
 @poster-fb-ratio-real-padding: 84px;
 @poster-fb-ratio-scale: @poster-fb-ratio-real-width / @poster-display-width;
@@ -125,6 +131,10 @@
 @logo-2x1-width: @logo-display-width * @poster-2x1-ratio;
 @logo-2x1-height: @logo-display-height * @poster-2x1-ratio;
 @logo-2x1-padding: @logo-display-padding * @poster-2x1-ratio;
+
+@logo-8x10-width: @logo-display-width * @poster-8x10-ratio;
+@logo-8x10-height: @logo-display-height * @poster-8x10-ratio;
+@logo-8x10-padding: @logo-display-padding * @poster-8x10-ratio;
 
 @logo-fb-ratio-width: @logo-display-width * @poster-fb-ratio-ratio;
 @logo-fb-ratio-height: @logo-display-height * @poster-fb-ratio-ratio;
@@ -167,6 +177,11 @@
 @credit-2x1-real-font-size: 30px;
 @quote-2x1-font-size: @quote-2x1-real-font-size * @poster-2x1-ratio;
 @credit-2x1-font-size: @credit-2x1-real-font-size * @poster-2x1-ratio;
+
+@quote-8x10-real-font-size: 66px;
+@credit-8x10-real-font-size: 36px;
+@quote-8x10-font-size: @quote-8x10-real-font-size * @poster-8x10-ratio;
+@credit-8x10-font-size: @credit-8x10-real-font-size * @poster-8x10-ratio;
 
 @quote-fb-ratio-real-font-size: 48px;
 @credit-fb-ratio-real-font-size: 30px;
@@ -221,6 +236,17 @@
 @quote-begin-2x1-font-size: 110px;
 @quote-begin-2x1-line-height: @quote-begin-line-height;
 
+@quote-begin-8x10-real-width: 110px;
+@quote-begin-8x10-real-height: 90px;
+@quote-begin-8x10-real-margin-bottom: 52px;
+
+@quote-begin-8x10-width: @quote-begin-8x10-real-width * @poster-8x10-ratio;
+@quote-begin-8x10-height: @quote-begin-8x10-real-height * @poster-8x10-ratio;
+@quote-begin-8x10-margin-bottom: @quote-begin-8x10-real-margin-bottom * @poster-8x10-ratio;
+@quote-begin-8x10-margin-left: -10px;
+@quote-begin-8x10-font-size: 182px;
+@quote-begin-8x10-line-height: @quote-begin-line-height;
+
 @quote-begin-fb-ratio-real-width: 66px;
 @quote-begin-fb-ratio-real-height: 54px;
 @quote-begin-fb-ratio-real-margin-bottom: 40px;
@@ -251,10 +277,10 @@
 
 
 // themes
-@theme2-bg-color: #212121;
+@theme2-bg-color: #B2B2B2;
 @theme2-text-color: #fff;
 @theme2-highlight-bg-color: transparent;
-@theme2-highlight-text-color: #FFF200;
+@theme2-highlight-text-color: #212121;
 @theme2-credit-color: #fff;
 @theme2-quote-text-color: @theme2-highlight-text-color;
 
@@ -271,6 +297,10 @@
 @theme2-2x1-logo-width: @logo-2x1-width;
 @theme2-2x1-logo-height: @logo-2x1-height;
 @theme2-2x1-logo-padding: @logo-2x1-padding;
+
+@theme2-8x10-logo-width: @logo-8x10-width;
+@theme2-8x10-logo-height: @logo-8x10-height;
+@theme2-8x10-logo-padding: @logo-8x10-padding;
 
 @theme2-fb-ratio-logo-width: @logo-fb-ratio-width;
 @theme2-fb-ratio-logo-height: @logo-fb-ratio-height;
@@ -297,14 +327,18 @@
 @theme3-2x1-logo-height: @logo-2x1-height;
 @theme3-2x1-logo-padding: @logo-2x1-padding;
 
+@theme3-8x10-logo-width: @logo-8x10-width;
+@theme3-8x10-logo-height: @logo-8x10-height;
+@theme3-8x10-logo-padding: @logo-8x10-padding;
+
 @theme3-fb-ratio-logo-width: @logo-fb-ratio-width;
 @theme3-fb-ratio-logo-height: @logo-fb-ratio-height;
 @theme3-fb-ratio-logo-padding: @logo-fb-ratio-padding;
 
-@theme4-bg-color: #B2B2B2;
+@theme4-bg-color: #212121;
 @theme4-text-color: #fff;
 @theme4-highlight-bg-color: transparent;
-@theme4-highlight-text-color: #212121;
+@theme4-highlight-text-color: #FFF200;
 @theme4-credit-color: #fff;
 @theme4-quote-text-color: @theme4-highlight-text-color;
 
@@ -321,6 +355,10 @@
 @theme4-2x1-logo-width: @logo-2x1-width;
 @theme4-2x1-logo-height: @logo-2x1-height;
 @theme4-2x1-logo-padding: @logo-2x1-padding;
+
+@theme4-8x10-logo-width: @logo-8x10-width;
+@theme4-8x10-logo-height: @logo-8x10-height;
+@theme4-8x10-logo-padding: @logo-8x10-padding;
 
 @theme4-fb-ratio-logo-width: @logo-fb-ratio-width;
 @theme4-fb-ratio-logo-height: @logo-fb-ratio-height;

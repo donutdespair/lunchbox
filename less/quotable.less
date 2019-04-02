@@ -179,6 +179,13 @@ canvas {
                 height: @theme2-2x1-logo-height;
             }
 
+            .eight-by-ten& {
+                right: @theme2-8x10-logo-padding;
+                bottom: @theme2-8x10-logo-padding;
+                width: @theme2-8x10-logo-width;
+                height: @theme2-8x10-logo-height;
+            }
+
             .facebook-ratio& {
                 right: @theme2-fb-ratio-logo-padding;
                 bottom: @theme2-fb-ratio-logo-padding;
@@ -194,6 +201,9 @@ canvas {
             color: @theme2-highlight-text-color;
         }
         .quote& .left-quote {
+            color: @theme2-quote-text-color;
+        }
+        .attribution {
             color: @theme2-quote-text-color;
         }
     }
@@ -221,6 +231,13 @@ canvas {
                 bottom: @theme3-2x1-logo-padding;
                 width: @theme3-2x1-logo-width;
                 height: @theme3-2x1-logo-height;
+            }
+
+            .eight-by-ten& {
+                right: @theme3-8x10-logo-padding;
+                bottom: @theme3-8x10-logo-padding;
+                width: @theme3-8x10-logo-width;
+                height: @theme3-8x10-logo-height;
             }
 
             .facebook-ratio& {
@@ -264,6 +281,13 @@ canvas {
                 bottom: @theme4-2x1-logo-padding;
                 width: @theme4-2x1-logo-width;
                 height: @theme4-2x1-logo-height;
+            }
+
+            .eight-by-ten& {
+                right: @theme4-8x10-logo-padding;
+                bottom: @theme4-8x10-logo-padding;
+                width: @theme4-8x10-logo-width;
+                height: @theme4-8x10-logo-height;
             }
 
             .facebook-ratio& {
@@ -330,6 +354,25 @@ canvas {
 
         .attribution {
             font-size: @credit-2x1-font-size;
+        }
+    }
+
+    &.eight-by-ten {
+        height: @poster-display-width * 1.25;
+        padding: @poster-8x10-padding;
+        font-size: @quote-8x10-font-size;
+
+        .quote& {
+            .left-quote {
+                height:@quote-begin-8x10-height;
+                margin-bottom:@quote-begin-8x10-margin-bottom;
+                margin-left: @quote-begin-8x10-margin-left;
+                line-height: @quote-begin-8x10-line-height;
+                font-size: @quote-begin-8x10-font-size;
+            }
+        }
+        .attribution {
+            font-size: @credit-8x10-font-size;
         }
     }
 
@@ -427,7 +470,7 @@ canvas {
 
     .attribution {
         font-size: @credit-sq-font-size;
-        padding-left: 1.5em;
+        padding-left: 1.2em;
         line-height: 1.3;
 
         position:relative;
@@ -496,6 +539,13 @@ canvas {
             right: @logo-2x1-padding;
             width: @logo-2x1-width;
             height: @logo-2x1-height;
+        }
+
+        .eight-by-ten& {
+            bottom: @logo-8x10-padding;
+            right: @logo-8x10-padding;
+            width: @logo-8x10-width;
+            height: @logo-8x10-height;
         }
 
         .facebook-ratio& {

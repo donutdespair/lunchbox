@@ -59,7 +59,8 @@ var aspectRatioOutputs = {
     square: [1080, 1080],
     'sixteen-by-nine': [1920, 1080],
     'two-by-one': [1024, 512],
-    'facebook-ratio': [1200, 630]
+    'facebook-ratio': [1200, 630],
+    'eight-by-ten': [1080, 1350]
 };
 function getOutputDims() {
     return aspectRatioOutputs[
@@ -231,7 +232,9 @@ $(function() {
     $aspectRatioButtons.on('click', function() {
         $aspectRatioButtons.removeClass().addClass('btn btn-primary');
         $(this).addClass('active');
-        $poster.removeClass('square sixteen-by-nine facebook-ratio two-by-one').addClass($(this).attr('id'));
+        $poster
+            .removeClass('square eight-by-ten sixteen-by-nine facebook-ratio two-by-one')
+            .addClass($(this).attr('id'));
         adjustFontSize(100)
     });
 
@@ -345,9 +348,9 @@ $(function() {
     });
 
     $resetHighlight.on('click', function(){
-        $.each($text, function(i, d){
+        $('.poster blockquote p').each(function(i, d) {
             $(d).html($(d).text());
-        });
+        })
         quoteArray = [];
         attributionArray = [];
     });
