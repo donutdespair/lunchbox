@@ -139,23 +139,24 @@ function adjustFontSize(size) {
 }
 
 function autoFontSize() {
-    var max = $fontSize.attr('max');
-    var min = $fontSize.attr('min');
-    adjustFontSize($fontSize.val());
+    var max = Number($fontSize.attr('max'));
+    var min = Number($fontSize.attr('min'));
+    var cur = Number($fontSize.val());
+    adjustFontSize(cur);
     if ( isTextTooLong() ) {
         while ( isTextTooLong() ) {
-            var newSize = $fontSize.val() - 1;
+            var newSize = Number($fontSize.val()) - 1;
             if ( newSize < min ) break;
             adjustFontSize(newSize);
         }
     } else {
         while ( !isTextTooLong() ) {
-            var newSize = $fontSize.val() + 1;
+            var newSize = Number($fontSize.val()) + 1;
             if ( newSize > max ) break;
-            adjustFontSize();
+            adjustFontSize(newSize);
         }
         if ( isTextTooLong() )
-            adjustFontSize($fontSize.val() - 1);
+            adjustFontSize(Number($fontSize.val()) - 1);
     }
 }
 
@@ -202,6 +203,7 @@ $(function() {
     $('.blockquote p').text(quote.quote);
     $source.html(quote.source);
     processText();
+    autoFontSize();
 
     $save.on('click', saveImage);
 
@@ -219,7 +221,6 @@ $(function() {
         $poster
             .removeClass('square eight-by-ten sixteen-by-nine facebook-ratio two-by-one')
             .addClass($(this).attr('id'));
-        adjustFontSize(100)
     });
 
     $quote.on('click', function() {
@@ -235,6 +236,8 @@ $(function() {
         var inputText = $(this).val();
         $showCredit.text(inputText);
     });
+
+    $('#auto-font').on('click', autoFontSize);
 
     var quoteEl = document.querySelectorAll('.poster .blockquote');
     var sourceEl = document.querySelectorAll('.source');
