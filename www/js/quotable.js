@@ -68,6 +68,19 @@ function getOutputDims() {
     ];
 }
 
+var minFontScale = {
+    square: 37,
+    'sixteen-by-nine': 37,
+    'two-by-one': 58,
+    'facebook-ratio': 48,
+    'eight-by-ten': 43
+};
+function getMinFontScale() {
+    return minFontScale[
+        $aspectRatioButtons.filter('.active').attr('id')
+    ];
+}
+
 function convertToSlug(text) {
     return text
         .toLowerCase()
@@ -218,6 +231,9 @@ $(function() {
     $aspectRatioButtons.on('click', function() {
         $aspectRatioButtons.removeClass().addClass('btn btn-primary');
         $(this).addClass('active');
+        if ( Number($fontSize.val()) < getMinFontScale() )
+            adjustFontSize(getMinFontScale());
+        $fontSize.attr('min', getMinFontScale());
         $poster
             .removeClass('square eight-by-ten sixteen-by-nine facebook-ratio two-by-one')
             .addClass($(this).attr('id'));
