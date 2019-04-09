@@ -487,11 +487,12 @@ canvas {
         }
     }
 
-    p.source {
+    .source {
         display: block;
         margin-top: 0;
 
-        &::first-line { font-weight: 700; }
+        p:first-child { font-weight: 700; }
+        p { margin: 0; }
     }
 
     .show-credit {
@@ -501,7 +502,7 @@ canvas {
         color: @credit-color;
     }
 
-    p.source,
+    .source,
     .show-credit {
         &:focus {
             border: none;

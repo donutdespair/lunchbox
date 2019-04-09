@@ -15,30 +15,36 @@ var $resetHighlight = null;
 var quotes = [
     {
         "quote": "I'd been drinking.",
-        "source": "Dennis Rodman<br>Basketball guy"
+        "source": "Dennis Rodman",
+        "title": "Basketball guy"
     },
     {
         "quote": "I've made a huge mistake.",
-        "source": "G.O.B.<br>Local Magician"
+        "source": "G.O.B.",
+        title: "Local Magician"
     },
     {
         "quote": "Yes, I have smoked crack cocaine",
-        "source": "Rob Ford<br>Toronto Mayor",
+        "source": "Rob Ford",
+        title: "Toronto Mayor",
         "size": 65
     },
     {
         "quote": "Annyong.",
-        "source": "Annyong<br>Annyong",
+        "source": "Annyong",
+        title: "Annyong",
         "size": 90
     },
     {
         "quote": "STEVE HOLT!",
-        "source": "Steve Holt<br>High schooler",
+        "source": "Steve Holt",
+        title: "High schooler",
         "size": 65
     },
     {
         "quote": "Whoa, whoa, whoa. There's still plenty of meat on that bone. Now you take this home, throw it in a pot, add some broth, a potato. Baby, you've got a stew going.",
-        "source": "Carl Weathers<br>Acting Coach",
+        "source": "Carl Weathers",
+        title: "Acting Coach",
         "size": 40
     }
 ];
@@ -89,7 +95,7 @@ function convertToSlug(text) {
 }
 
 function processText() {
-    $('.poster .blockquote p, .source').each(function() {
+    $('.poster .blockquote p, .source p').each(function() {
         var rawText = $(this).html();
         var processedText = smarten($.trim(rawText).replace('&nbsp;', ' '));
         if ( ! $(this).hasClass('source') )
@@ -200,7 +206,7 @@ var HighlighterButton = MediumEditor.extensions.button.extend({
 });
 
 $(function() {
-    $text = $('.poster .blockquote p, .source');
+    $text = $('.poster .blockquote p, .source p');
     $save = $('#save');
     $poster = $('.poster');
     $themeButtons = $('#theme .btn');
@@ -214,7 +220,7 @@ $(function() {
 
     var quote = quotes[Math.floor(Math.random()*quotes.length)];
     $('.blockquote p').text(quote.quote);
-    $source.html(quote.source);
+    $source.html('<p>' + quote.source + '</p><p>' + quote.title + '</p>');
     processText();
     autoFontSize();
 
