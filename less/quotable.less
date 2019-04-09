@@ -1,6 +1,6 @@
-@import "less/lib/bootstrap/bootstrap";
-@import "less/lib/font-awesome/font-awesome";
-//@import "less/medium";
+@import "less/lib/bootstrap/variables";
+@import "less/medium-editor";
+@import "less/medium-editor-theme";
 @import "less/variables";
 
 // Global variables
@@ -196,7 +196,7 @@ canvas {
         .show-credit {
             color: @theme2-credit-color;
         }
-        blockquote p span {
+        .blockquote p mark {
             background-color: @theme2-highlight-bg-color;
             color: @theme2-highlight-text-color;
         }
@@ -250,7 +250,7 @@ canvas {
         .show-credit {
             color: @theme3-credit-color;
         }
-        blockquote p span {
+        .blockquote p mark {
             background-color: @theme3-highlight-bg-color;
             color: @theme3-highlight-text-color;
         }
@@ -300,7 +300,7 @@ canvas {
         .show-credit {
             color: @theme4-credit-color;
         }
-        blockquote p span {
+        .blockquote p mark {
             background-color: @theme4-highlight-bg-color;
             color: @theme4-highlight-text-color;
         }
@@ -324,7 +324,7 @@ canvas {
             }
         }
 
-        blockquote {
+        .blockquote {
             margin-bottom: 20px;
         }
 
@@ -348,7 +348,7 @@ canvas {
             }
         }
 
-        blockquote {
+        .blockquote {
             margin-bottom: 20px;
         }
 
@@ -391,7 +391,7 @@ canvas {
             }
         }
 
-        blockquote {
+        .blockquote {
             margin-bottom: 20px;
         }
 
@@ -421,7 +421,7 @@ canvas {
         display: none;
     }
 
-    blockquote {
+    .blockquote {
         padding: 0;
         margin: 0 0 @line-height * 2;
         border-left: none;
@@ -443,7 +443,7 @@ canvas {
             line-height: 125%;
             // background-color: #fff;
 
-            span {
+            mark {
                 line-height: inherit !important;
                 background-color: @highlight-bg-color;
                 color: @highlight-text-color;
@@ -454,13 +454,12 @@ canvas {
             color: red;
         }
 
-        .quote& {
-
-            p:last-child:after {
+        p:last-child {
+            br:last-child {display:none;} // medium editor insists on adding this last BR
+            &:after {
                 content: @quote-end-symbol;
                 font-weight: @quote-end-font-weight;
             }
-
         }
 
         .show-credit {
@@ -489,10 +488,6 @@ canvas {
         margin-top: 0;
 
         &::first-line { font-weight: 700; }
-
-        span{
-          background-color: #fff200;
-        }
     }
 
     .show-credit {

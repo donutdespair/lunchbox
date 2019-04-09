@@ -76,13 +76,13 @@ function convertToSlug(text) {
 }
 
 function processText() {
-    $('.poster blockquote p').each(function() {
-        var rawText = $.trim($(this).html());
-        $(this).html(smarten(rawText)).find('br').remove();
-    });
-    $('.source').each(function() {
-        var rawText = $.trim($(this).html());
-        $(this).html(smarten(rawText));
+    $('.poster .blockquote p, .source').each(function() {
+        var rawText = $(this).html();
+        var processedText = smarten($.trim(rawText).replace('&nbsp;', ' '));
+        if ( ! $(this).hasClass('source') )
+            processedText = processedText.replace(/<br\s*\/?>/, '');
+        if ( rawText !== processedText )
+            $(this).html(processedText)
     });
 }
 
@@ -117,7 +117,7 @@ function saveImage() {
         window.oCanvas = canvases[0];
         var strDataURI = window.oCanvas.toDataURL();
 
-        var quote = $('blockquote').text().split(' ', 5);
+        var quote = $('.blockquote').text().split(' ', 5);
         var filename = convertToSlug(quote.join(' '));
 
         var a = $("<a>").attr("href", strDataURI).attr("download", "quote-" + filename + ".png").appendTo("body");
@@ -133,45 +133,9 @@ function saveImage() {
 
 function adjustFontSize(size) {
     var fontSize = size.toString() + '%';
-    $('.poster blockquote p').css('font-size', fontSize);
-    if ($fontSize.val() !== size){
-        $fontSize.val(size);
-    };
-}
-
-function getSelectionCharOffsetsWithin(element) {
-    var start = 0, end = 0;
-    var sel, range, priorRange;
-    if (typeof window.getSelection != "undefined") {
-        range = window.getSelection().getRangeAt(0);
-        priorRange = range.cloneRange();
-        priorRange.selectNodeContents(element);
-        priorRange.setEnd(range.startContainer, range.startOffset);
-        start = priorRange.toString().length;
-        end = start + range.toString().length;
-    } else if (typeof document.selection != "undefined" &&
-            (sel = document.selection).type != "Control") {
-        range = sel.createRange();
-        priorRange = document.body.createTextRange();
-        priorRange.moveToElementText(element);
-        priorRange.setEndPoint("EndToStart", range);
-        start = priorRange.text.length;
-        end = start + range.text.length;
-    }
-    return {
-        start: start,
-        end: end
-    };
-}
-
-function getSelectionText() {
-    var text = "";
-    if (window.getSelection) {
-        text = window.getSelection().toString();
-    } else if (document.selection && document.selection.type != "Control") {
-        text = document.selection.createRange().text;
-    }
-    return text;
+    $('.poster .blockquote p').css('font-size', fontSize);
+    processText();
+    if ($fontSize.val() !== size) $fontSize.val(size);
 }
 
 function autoFontSize() {
@@ -195,8 +159,34 @@ function autoFontSize() {
     }
 }
 
+rangy.init();
+
+var HighlighterButton = MediumEditor.extensions.button.extend({
+  name: 'highlighter',
+
+  tagNames: ['mark'], // nodeName which indicates the button should be 'active' when isAlreadyApplied() is called
+  contentDefault: '<b>H</b>', // default innerHTML of the button
+  contentFA: '<i class="fa fa-paint-brush"></i>', // innerHTML of button when 'fontawesome' is being used
+  aria: 'Highlight', // used as both aria-label and title attributes
+  action: 'highlight', // used as the data-action attribute of the button
+
+  init: function () {
+    MediumEditor.extensions.button.prototype.init.call(this);
+
+    this.classApplier = rangy.createClassApplier('highlight', {
+      elementTagName: 'mark',
+      normalize: true
+    });
+  },
+
+  handleClick: function (event) {
+    this.classApplier.toggleSelection();
+    this.base.checkContentChanged();
+  }
+});
+
 $(function() {
-    $text = $('.poster blockquote p, .source');
+    $text = $('.poster .blockquote p, .source');
     $save = $('#save');
     $poster = $('.poster');
     $themeButtons = $('#theme .btn');
@@ -207,15 +197,9 @@ $(function() {
     $showCredit = $('.show-credit');
     $quote = $('#quote');
     $logoWrapper = $('.logo-wrapper');
-    $highlightButtons = $('#highlight .btn');
-    $resetHighlight = $('#reset-highlight');
-    var quoteArray = [],
-        attributionArray = [],
-        spanArray = quoteArray;
 
     var quote = quotes[Math.floor(Math.random()*quotes.length)];
-    $('blockquote p').text(quote.quote);
-    console.log(quote.source);
+    $('.blockquote p').text(quote.quote);
     $source.html(quote.source);
     processText();
 
@@ -243,18 +227,6 @@ $(function() {
         $poster.toggleClass('quote');
     });
 
-    var highlight = "highlight-off";
-    $highlightButtons.on('click', function() {
-        $highlightButtons.removeClass().addClass('btn btn-primary');
-        $(this).addClass('active');
-        highlight = $(this).attr('id');
-        if ( highlight === 'highlight-on' ) {
-            $('body').addClass('highlight-cursor');
-        } else {
-            $('body').removeClass('highlight-cursor');
-        }
-    });
-
     $fontSize.on('input', function() {
         adjustFontSize($(this).val());
     });
@@ -264,108 +236,24 @@ $(function() {
         $showCredit.text(inputText);
     });
 
-    // // This event is interfering with the medium editor in some browsers
-    // $('blockquote').on('keyup', function(){
-
-    //     console.log($(this)[0].selectionStart);
-    //     process_text();
-    // });
-    var selectedDiv;
-    $('.poster blockquote p').on('mousedown', function(){
-        selectedDiv = this;
-        spanArray = quoteArray;
-    });
-
-    $('.poster .source').on('mousedown', function(){
-        selectedDiv = this;
-        spanArray = attributionArray;
-    });
-
-    $($poster).on('mouseup', function(){
-        if(getSelectionText().length > 0 && highlight === 'highlight-on'){
-            spanArray.push(getSelectionCharOffsetsWithin(selectedDiv));
-            spanArray = _.sortBy(spanArray, 'start');
-            if(spanArray.length > 1){
-                $.each(spanArray, function(i, d){
-                    if(i+1 < spanArray.length){
-                        if(d.end >= spanArray[i+1].start){
-                            spanArray[i+1].start = d.start;
-                            spanArray.splice(i, 1);
-                        }
-                    }
-                });
-            }
-
-            var selectedText = getSelectionText(),
-                text = $(selectedDiv).text(),
-                textArray = text.split('');
-
-            var count = 0;
-            $.each(spanArray, function(i, d){
-                textArray.splice(d.start+count, 0, '<span>');
-                count += 1;
-                textArray.splice(d.end+count, 0, '</span>');
-                count += 1;
-            });
-
-            $(selectedDiv).html(textArray.join(''));
-            $(selectedDiv).blur();
-        }
-    });
-
-    $($poster).on('keyup', function(event){
-        var tempArray = [];
-        var spans = [];
-        $.each($(selectedDiv).find('span'), function(i, d){
-            spans.push($(d).html());
-        });
-        var array = $(selectedDiv).html().replace(/&nbsp;/g, ' ').split(/(<span>.*?<\/span>)/g);
-
-        var count = 0;
-        $.each(array, function(i, d){
-            if(d.match(/(<span>.*?<\/span>)/g)){
-                var item =  {
-                    start: count,
-                    end: 0,
-                    text: d.replace(/<span>/, '').replace(/<\/span>/, '')
-                };
-                var text = d.replace(/<span>/, '').replace(/<\/span>/, '');
-                count += text.length;
-                item.end = count;
-                tempArray.push(item);
-            } else {
-                count += d.length;
-            }
-        });
-
-        if(spanArray === quoteArray){
-            quoteArray = tempArray;
-            spanArray = quoteArray;
-        } else {
-            attributionArray = tempArray;
-            spanArray = attributionArray;
-        }
-    });
-
-    $resetHighlight.on('click', function(){
-        $('.poster blockquote p').each(function(i, d) {
-            $(d).html($(d).text());
-        })
-        quoteArray = [];
-        attributionArray = [];
-    });
-
-
-    var quoteEl = document.querySelectorAll('.poster blockquote');
+    var quoteEl = document.querySelectorAll('.poster .blockquote');
     var sourceEl = document.querySelectorAll('.source');
 
     var quoteEditor = new MediumEditor(quoteEl, {
-        disableToolbar: true,
-        placeholder: 'Type your quote here'
+        toolbar: {
+            buttons: ['highlighter']
+        },
+        extensions: {
+            'highlighter': new HighlighterButton()
+        },
+        buttonLabels: 'fontawesome',
+        placeholder: 'Type your quote here',
+        //disableExtraSpaces: true
     });
 
     var sourceEditor = new MediumEditor(sourceEl, {
-        disableToolbar: true,
-        placeholder: 'Type your quote source here'
+        toolbar: false,
+        placeholder: 'Type your quote source here',
+        disableExtraSpaces: true
     });
 });
