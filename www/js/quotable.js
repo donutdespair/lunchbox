@@ -61,6 +61,14 @@ function smarten(a) {
   return a;
 }
 
+function getAspectRatio() {
+    return $aspectRatioButtons.filter('.active').attr('id');
+}
+
+function getFontSize() {
+    return Number($fontSize.val());
+}
+
 var aspectRatioOutputs = {
     square: [1080, 1080],
     'sixteen-by-nine': [1920, 1080],
@@ -69,9 +77,7 @@ var aspectRatioOutputs = {
     'eight-by-ten': [1080, 1350]
 };
 function getOutputDims() {
-    return aspectRatioOutputs[
-        $aspectRatioButtons.filter('.active').attr('id')
-    ];
+    return aspectRatioOutputs[getAspectRatio()];
 }
 
 var minFontScale = {
@@ -82,9 +88,44 @@ var minFontScale = {
     'eight-by-ten': 43
 };
 function getMinFontScale() {
-    return minFontScale[
-        $aspectRatioButtons.filter('.active').attr('id')
-    ];
+    return minFontScale[getAspectRatio()];
+}
+
+var lineHeights = {
+    square: [
+        [50, 1.6],
+        [80, 1.4],
+        [100, 1.2]
+    ],
+    'sixteen-by-nine': [
+        [50, 1.6],
+        [80, 1.4],
+        [100, 1.2]
+    ],
+    'two-by-one': [
+        [80, 1.6],
+        [100, 1.4],
+    ],
+    'facebook-ratio': [
+        [66, 1.6],
+        [100, 1.4],
+    ],
+    'eight-by-ten': [
+        [50, 1.6],
+        [80, 1.4],
+        [100, 1.2]
+    ]
+}
+function getLineHeight(size) {
+    if ( !size ) size = getFontSize();
+    var ranges = lineHeights[getAspectRatio()];
+    var newLineHeight;
+    for ( var i = ranges.length - 1; i >= 0; i-- ) {
+        var range = ranges[i];
+        if ( size <= range[0] )
+            newLineHeight = range[1];
+    }
+    return newLineHeight;
 }
 
 function convertToSlug(text) {
@@ -152,30 +193,33 @@ function saveImage() {
 
 function adjustFontSize(size) {
     var fontSize = size.toString() + '%';
-    $('.poster .blockquote p').css('font-size', fontSize);
+    $('.poster .blockquote p').css({
+        'font-size': fontSize,
+        'line-height': getLineHeight(size)
+    });
     processText();
-    if ($fontSize.val() !== size) $fontSize.val(size);
+    if (getFontSize() !== size) $fontSize.val(size);
 }
 
 function autoFontSize() {
     var max = Number($fontSize.attr('max'));
     var min = Number($fontSize.attr('min'));
-    var cur = Number($fontSize.val());
+    var cur = getFontSize();
     adjustFontSize(cur);
     if ( isTextTooLong() ) {
         while ( isTextTooLong() ) {
-            var newSize = Number($fontSize.val()) - 1;
+            var newSize = getFontSize() - 1;
             if ( newSize < min ) break;
             adjustFontSize(newSize);
         }
     } else {
         while ( !isTextTooLong() ) {
-            var newSize = Number($fontSize.val()) + 1;
+            var newSize = getFontSize() + 1;
             if ( newSize > max ) break;
             adjustFontSize(newSize);
         }
         if ( isTextTooLong() )
-            adjustFontSize(Number($fontSize.val()) - 1);
+            adjustFontSize(getFontSize() - 1);
     }
 }
 
@@ -237,7 +281,7 @@ $(function() {
     $aspectRatioButtons.on('click', function() {
         $aspectRatioButtons.removeClass().addClass('btn btn-primary');
         $(this).addClass('active');
-        if ( Number($fontSize.val()) < getMinFontScale() )
+        if ( getFontSize() < getMinFontScale() )
             adjustFontSize(getMinFontScale());
         $fontSize.attr('min', getMinFontScale());
         $poster
@@ -272,8 +316,7 @@ $(function() {
             'highlighter': new HighlighterButton()
         },
         buttonLabels: 'fontawesome',
-        placeholder: 'Type your quote here',
-        //disableExtraSpaces: true
+        placeholder: 'Type your quote here'
     });
 
     var sourceEditor = new MediumEditor(sourceEl, {
