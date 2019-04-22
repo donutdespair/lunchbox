@@ -160,6 +160,10 @@ function saveImage() {
         return;
     }
 
+    // make sure we're scrolled to the top of the page because of a really
+    // strange html2canvas bug
+    window.scrollTo(0, 0);
+
     // make sure source begins with em dash
     // if (!$source.text().match(/^[\u2014]/g)) {
     //     $source.html('&mdash;&thinsp;' + $source.text());
