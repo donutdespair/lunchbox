@@ -143,6 +143,9 @@ canvas {
     }
 }
 
+.logo-theme1, .logo-theme2, .logo-theme3,
+.logo-theme4, .logo-theme5, .logo-theme6 { display:none; }
+
 .poster {
     height: @poster-display-width;
     width: @poster-display-width;
@@ -155,9 +158,12 @@ canvas {
     overflow: hidden;
     color: @text-color;
 
+    &.poster-theme1 .logo-theme1 { display:block; }
+
     &.poster-theme2 {
         background: @theme2-bg-color;
         color: @theme2-text-color;
+        .logo-theme2 { display:block; }
         .logo-wrapper {
             /*background-image: @theme2-logo-path;*/
             right: @theme2-sq-logo-padding;
@@ -212,6 +218,7 @@ canvas {
     &.poster-theme3 {
         background: @theme3-bg-color;
         color: @theme3-text-color;
+        .logo-theme3 { display:block; }
         .logo-wrapper {
             /*background-image: @theme3-logo-path;*/
             right: @theme3-sq-logo-padding;
@@ -262,6 +269,7 @@ canvas {
     &.poster-theme4 {
         background: @theme4-bg-color;
         color: @theme4-text-color;
+        .logo-theme4 { display:block; }
         .logo-wrapper {
             /*background-image: @theme4-logo-path;*/
             right: @theme4-sq-logo-padding;
@@ -306,6 +314,108 @@ canvas {
         }
         .quote& .left-quote {
             color: @theme4-quote-text-color;
+        }
+    }
+
+    &.poster-theme5 {
+        background: @theme5-bg-color;
+        color: @theme5-text-color;
+        .logo-theme5 { display:block; }
+        .logo-wrapper {
+            /*background-image: @theme5-logo-path;*/
+            right: @theme5-sq-logo-padding;
+            bottom: @theme5-sq-logo-padding;
+            width: @theme5-sq-logo-width;
+            height: @theme5-sq-logo-height;
+
+            .sixteen-by-nine& {
+                right: @theme5-16x9-logo-padding;
+                bottom: @theme5-16x9-logo-padding;
+                width: @theme5-16x9-logo-width;
+                height: @theme5-16x9-logo-height;
+            }
+
+            .two-by-one& {
+                right: @theme5-2x1-logo-padding;
+                bottom: @theme5-2x1-logo-padding;
+                width: @theme5-2x1-logo-width;
+                height: @theme5-2x1-logo-height;
+            }
+
+            .eight-by-ten& {
+                right: @theme5-8x10-logo-padding;
+                bottom: @theme5-8x10-logo-padding;
+                width: @theme5-8x10-logo-width;
+                height: @theme5-8x10-logo-height;
+            }
+
+            .facebook-ratio& {
+                right: @theme5-fb-ratio-logo-padding;
+                bottom: @theme5-fb-ratio-logo-padding;
+                width: @theme5-fb-ratio-logo-width;
+                height: @theme5-fb-ratio-logo-height;
+            }
+        }
+        .show-credit {
+            color: @theme5-credit-color;
+        }
+        .blockquote p mark {
+            background-color: @theme5-highlight-bg-color;
+            color: @theme5-highlight-text-color;
+        }
+        .quote& .left-quote {
+            color: @theme5-quote-text-color;
+        }
+    }
+
+    &.poster-theme6 {
+        background: @theme6-bg-color;
+        color: @theme6-text-color;
+        .logo-theme6 { display:block; }
+        .logo-wrapper {
+            /*background-image: @theme6-logo-path;*/
+            right: @theme6-sq-logo-padding;
+            bottom: @theme6-sq-logo-padding;
+            width: @theme6-sq-logo-width;
+            height: @theme6-sq-logo-height;
+
+            .sixteen-by-nine& {
+                right: @theme6-16x9-logo-padding;
+                bottom: @theme6-16x9-logo-padding;
+                width: @theme6-16x9-logo-width;
+                height: @theme6-16x9-logo-height;
+            }
+
+            .two-by-one& {
+                right: @theme6-2x1-logo-padding;
+                bottom: @theme6-2x1-logo-padding;
+                width: @theme6-2x1-logo-width;
+                height: @theme6-2x1-logo-height;
+            }
+
+            .eight-by-ten& {
+                right: @theme6-8x10-logo-padding;
+                bottom: @theme6-8x10-logo-padding;
+                width: @theme6-8x10-logo-width;
+                height: @theme6-8x10-logo-height;
+            }
+
+            .facebook-ratio& {
+                right: @theme6-fb-ratio-logo-padding;
+                bottom: @theme6-fb-ratio-logo-padding;
+                width: @theme6-fb-ratio-logo-width;
+                height: @theme6-fb-ratio-logo-height;
+            }
+        }
+        .show-credit {
+            color: @theme6-credit-color;
+        }
+        .blockquote p mark {
+            background-color: @theme6-highlight-bg-color;
+            color: @theme6-highlight-text-color;
+        }
+        .quote& .left-quote {
+            color: @theme6-quote-text-color;
         }
     }
 
@@ -525,7 +635,7 @@ canvas {
         width: @logo-sq-width;
         height: @logo-sq-height;
 
-        img { max-width:100%; display:block;}
+        img { max-width:100%; }
 
         .sixteen-by-nine& {
             bottom: @logo-16x9-padding;

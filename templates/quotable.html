@@ -8,7 +8,7 @@
 {% block content %}
 <div class="content">
     <div class="poster-wrapper">
-        <div class="poster quote poster-news">
+        <div class="poster quote poster-news poster-theme1">
             <span class="left-quote">&ldquo;</span>
             <div class="blockquote"><p></p></div>
 
@@ -17,7 +17,11 @@
                 <p class="show-credit"></p>
             </div>
 
-            <p class="logo-wrapper"><img src="../img/icon-vox-white.svg" /></p>
+            <p class="logo-wrapper">
+                <img class="logo-theme1 logo-theme2 logo-theme3 logo-theme4" src="../img/icon-vox-white.svg" />
+                <img class="logo-theme5" src="../img/icon-recode-white.svg" />
+                <img class="logo-theme6" src="../img/icon-recode-black.svg" />
+            </p>
         </div>
     </div>
     <div class="container">
@@ -32,10 +36,12 @@
                     <div class="form-group">
                         <label for="theme">Theme</label>
                         <div id="theme" class="btn-group">
-                            <button id="theme1" class="btn btn-primary active">Standard</button>
-                            <button id="theme2" class="btn btn-primary">Alt 1</button>
-                            <button id="theme3" class="btn btn-primary">Alt 2</button>
-                            <button id="theme4" class="btn btn-primary">Breaking</button>
+                            <button id="theme1" class="btn btn-primary active">Vox Standard</button>
+                            <button id="theme2" class="btn btn-primary">Vox Alt 1</button>
+                            <button id="theme3" class="btn btn-primary">Vox Alt 2</button>
+                            <button id="theme4" class="btn btn-primary">Vox Breaking</button>
+                            <button id="theme5" class="btn btn-primary">Recode Dark</button>
+                            <button id="theme6" class="btn btn-primary">Recode Light</button>
                         </div>
                     </div>
                     <div class="form-group">
